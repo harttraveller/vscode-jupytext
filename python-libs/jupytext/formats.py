@@ -224,26 +224,36 @@ NOTEBOOK_EXTENSIONS = list(
 EXTENSION_PREFIXES = [".lgt", ".spx", ".pct", ".hyd", ".nb"]
 
 
+# def get_format_implementation(ext, format_name=None):
+#     """Return the implementation for the desired format"""
+#     # remove pre-extension if any
+#     ext = "." + ext.split(".")[-1]
+
+#     formats_for_extension = []
+#     for fmt in JUPYTEXT_FORMATS:
+#         if fmt.extension == ext:
+#             if fmt.format_name == format_name or not format_name:
+#                 return fmt
+#             formats_for_extension.append(fmt.format_name)
+
+#     if formats_for_extension:
+#         raise JupytextFormatError(
+#             "Format '{}' is not associated to extension '{}'. "
+#             "Please choose one of: {}.".format(
+#                 format_name, ext, ", ".join(formats_for_extension)
+#             )
+#         )
+#     raise JupytextFormatError("No format associated to extension '{}'".format(ext))
+
+
 def get_format_implementation(ext, format_name=None):
-    """Return the implementation for the desired format"""
-    # remove pre-extension if any
-    ext = "." + ext.split(".")[-1]
+    """
+    Return the markdown format.
 
-    formats_for_extension = []
-    for fmt in JUPYTEXT_FORMATS:
-        if fmt.extension == ext:
-            if fmt.format_name == format_name or not format_name:
-                return fmt
-            formats_for_extension.append(fmt.format_name)
+    Fixes issue with saving but limits capabilities.
 
-    if formats_for_extension:
-        raise JupytextFormatError(
-            "Format '{}' is not associated to extension '{}'. "
-            "Please choose one of: {}.".format(
-                format_name, ext, ", ".join(formats_for_extension)
-            )
-        )
-    raise JupytextFormatError("No format associated to extension '{}'".format(ext))
+    """
+    return JUPYTEXT_FORMATS[0]
 
 
 def read_metadata(text, ext):
@@ -381,9 +391,7 @@ def divine_format(text):
     lines = text.splitlines()
     for comment in ["", "#"] + _COMMENT_CHARS:
         metadata, _, _, _ = header_to_metadata_and_cell(lines, comment)
-        ext = (
-            metadata.get("jupytext", {}).get("text_representation", {}).get("extension")
-        )
+        ext = metadata.get("jupytext", {}).get("text_representation", {}).get("extension")
         if ext:
             return ext[1:] + ":" + guess_format(text, ext)[0]
 
@@ -485,9 +493,7 @@ def identical_format_path(fmt1, fmt2):
 def update_jupytext_formats_metadata(metadata, new_format):
     """Update the jupytext_format metadata in the Jupyter notebook"""
     new_format = long_form_one_format(new_format)
-    formats = long_form_multiple_formats(
-        metadata.get("jupytext", {}).get("formats", "")
-    )
+    formats = long_form_multiple_formats(metadata.get("jupytext", {}).get("formats", ""))
     if not formats:
         return
 
@@ -496,9 +502,7 @@ def update_jupytext_formats_metadata(metadata, new_format):
             fmt["format_name"] = new_format.get("format_name")
             break
 
-    metadata.setdefault("jupytext", {})["formats"] = short_form_multiple_formats(
-        formats
-    )
+    metadata.setdefault("jupytext", {})["formats"] = short_form_multiple_formats(formats)
 
 
 def rearrange_jupytext_metadata(metadata):
@@ -675,15 +679,11 @@ def short_form_one_format(jupytext_format):
         fmt = jupytext_format["prefix"] + "/" + fmt
 
     if jupytext_format.get("format_name"):
-        if (
-            jupytext_format["extension"]
-            not in [
-                ".md",
-                ".markdown",
-                ".Rmd",
-            ]
-            or jupytext_format["format_name"] in ["pandoc", MYST_FORMAT_NAME]
-        ):
+        if jupytext_format["extension"] not in [
+            ".md",
+            ".markdown",
+            ".Rmd",
+        ] or jupytext_format["format_name"] in ["pandoc", MYST_FORMAT_NAME]:
             fmt = fmt + ":" + jupytext_format["format_name"]
 
     return fmt
