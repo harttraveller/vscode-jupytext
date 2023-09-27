@@ -1,5 +1,5 @@
 {
-    "name": "vscode-jupytext",
+    "name": "markdown-jupytext",
     "displayName": "Jupytext: Markdown as Jupyter Notebooks (harttrav)",
     "description": "Fixes file save issue with, but restricts to markdown files. Open, edit and execute markdown files as Jupyter Notebooks. Soft fork of congyiwu.vscode-jupytext",
     "publisher": "harttrav",
