@@ -1,9 +1,9 @@
 {
     "name": "vscode-jupytext",
-    "displayName": "Jupytext for Notebooks (congyiwu)",
-    "description": "Open, edit and execute plain script files (Python, R, Julia, TypeScript, C#, etc) as Jupyter Notebooks.  Soft fork of donjayamanne.vscode-jupytext",
-    "publisher": "congyiwu",
-    "version": "0.1.2",
+    "displayName": "Jupytext: Markdown as Jupyter Notebooks (harttrav)",
+    "description": "Open, edit and execute markdown files as Jupyter Notebooks. Soft fork of congyiwu.vscode-jupytext",
+    "publisher": "harttrav",
+    "version": "0.1.3",
     "enableProposedApi": false,
     "preview": true,
     "engines": {
@@ -25,18 +25,19 @@
         },
         "virtualWorkspaces": false
     },
-    "homepage": "https://github.com/congyiwu/vscode-jupytext",
+    "homepage": "https://github.com/harttraveller/vscode-jupytext",
     "repository": {
         "type": "git",
-        "url": "https://github.com/congyiwu/vscode-jupytext"
+        "url": "https://github.com/harttraveller/vscode-jupytext"
     },
     "bugs": {
-        "url": "https://github.com/congyiwu/vscode-jupytext/issues"
+        "url": "https://github.com/harttraveller/vscode-jupytext/issues"
     },
     "keywords": [
         "python",
         "notebook",
-        "multi-root ready"
+        "jupyter",
+        "markdown"
     ],
     "categories": [
         "Programming Languages",
@@ -48,7 +49,7 @@
         "commands": [
             {
                 "command": "jupyter.openAsPairedNotebook",
-                "title": "Open as a Jupyter Notebook"
+                "title": "Jupyter"
             }
         ],
         "menus": {
