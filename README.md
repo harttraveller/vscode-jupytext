@@ -2,7 +2,7 @@
 
 ## Links
 
-- [Visual studio marketplace link for this extension]() TODO
+- [Visual studio marketplace link for this extension](https://marketplace.visualstudio.com/items?itemName=harttrav.markdown-jupytext)
 - [Extension this repository is forked from](https://github.com/congyiwu/vscode-jupytext)
 - [Original extension repository](https://github.com/notebookPowerTools/vscode-jupytext)
 
